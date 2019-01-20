@@ -11,14 +11,7 @@ import * as Actions from '../actions';
 class GifList extends Component{
 
 
-  _onPressItem=(item) => {
-    this.props.actions.showModal()
-  }
-
-
-
   render(){
-    console.log(this.props.isModalVisible)
     return(
       <View>
         <FlatList
@@ -27,7 +20,7 @@ class GifList extends Component{
         renderItem={({item}) =>
         <GifItem
           item={item}
-          onPressItem= {() => this._onPressItem(item)} />
+          onPressItem= {(selectedItem) => this.props.actions.showModal({selectedItem})} />
        }
         keyExtractor={(item) => item.id }
         />

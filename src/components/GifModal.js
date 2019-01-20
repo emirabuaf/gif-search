@@ -3,12 +3,6 @@ import {View,Text,Modal,TouchableOpacity,Image} from 'react-native';
 
 class GifModal extends Component {
 
-  state = {
-    isModalVisible: this.props.modalVisible
-  }
-  _setModalVisible(visible) {
-  this.setState({isModalVisible: visible});
-}
 
   render(){
     return(
@@ -16,7 +10,7 @@ class GifModal extends Component {
         <Modal
            animationType="slide"
            transparent={false}
-           visible={this.state.isModalVisible}
+           visible={this.props.modalVisible}
            onRequestClose={() => {
           }}>
             <View style={{height:250,marginTop:200}}>
