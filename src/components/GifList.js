@@ -2,28 +2,23 @@ import React, {Component} from 'react';
 import{ ScrollView,View, Text, FlatList} from 'react-native';
 import GifItem from './GifItem';
 import GifModal from './GifModal';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as Actions from '../actions';
+
+
 
 class GifList extends Component{
 
-  state = {
-    isModalVisible:false,
-    selectedItem:null
-  }
 
   _onPressItem=(item) => {
-    this._showModal(item)
+    this.props.actions.showModal()
   }
 
-  _hideModal = () => {
-    this.setState({isModalVisible:false})
-  }
 
-  _showModal = (item) => this.setState({
-    isModalVisible:true,
-    selectedItem:item
-  })
 
   render(){
+    console.log(this.props.isModalVisible)
     return(
       <View>
         <FlatList
@@ -36,12 +31,23 @@ class GifList extends Component{
        }
         keyExtractor={(item) => item.id }
         />
-      { this.state.isModalVisible && <GifModal selectedItem={this.state.selectedItem} modalVisible={this.state.isModalVisible} hideModal={this._hideModal} /> }
+        { this.props.isModalVisible && <GifModal selectedItem={this.props.selectedItem} modalVisible={this.props.isModalVisible} hideModal={this.props.actions.hideModal} /> }
       </View>
     )
   }
 }
 
+function mapStateToProps(state){
+  return{
+    isModalVisible:state.modal.isModalVisible,
+    selectedItem:state.modal.selectedItem
+  }
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Actions, dispatch)
+  };
+}
 
-export default GifList;
+export default connect(mapStateToProps,mapDispatchToProps)(GifList);

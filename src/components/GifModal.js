@@ -18,7 +18,6 @@ class GifModal extends Component {
            transparent={false}
            visible={this.state.isModalVisible}
            onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
           }}>
             <View style={{height:250,marginTop:200}}>
                 <Image
